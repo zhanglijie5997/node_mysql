@@ -4,9 +4,12 @@ const mysql = require("../../../config/confis");
 
 const code = require("../../../utils/code");
 
+const { encry } = require("../../../config/cryptoJs/cryptoJs")
+
+// 添加用户
 const addUser = async (ctx, next) => {
-    
-    const { name, email } = ctx.request.body;
+    console.log(`2123`);
+    const { name, email, password } = ctx.request.body;
     if(!name) {
         ctx.body = template(code['1004'], {
             message: '请输入正确用户名'
@@ -28,24 +31,30 @@ const addUser = async (ctx, next) => {
                 message: '该用户已存在'
             })
         }else {
+            // 生成jsonwebtoken对象
+            const userMsg = {
+                name,
+                email,
+                password
+            };
+            console.log(encry(userMsg));
             const data = await mysql('ADDUSER', {
                 name,
                 email,
-                token: Date.now()
+                password,
+                token: encry(userMsg)
             }, 0);
             if(data) {
                 ctx.body = template(code['1001'], {
-                    message: '添加用户成功'
+                    message: '注册成功'
                 });
             }
         }
-        
     } catch (error) {
         ctx.body = template(code['1004'], {
             message: ''
         });
     }
-    
     await next();
 }
 
