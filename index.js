@@ -10,13 +10,13 @@ const volidate = require("./utils/volidate");
 
 const { index } = require("./router/get/get");
 
-const { changeUser, addUser } = require("./router/post/post");
+const { changeUser, register, login } = require("./router/post/post");
 
 const app = new koa();
 
-app.use(volidate);
-
 app.use(cors());
+
+app.use(volidate);
 
 app.use(bodyparser());
 
@@ -28,7 +28,9 @@ router.get('/', index)
 
 router.post('/changeUser', changeUser)
 
-router.post('/addUser', addUser)
+router.post('/register', register)
+
+router.post('/login', login)
 
 app.listen(9999, () => {
     console.log(`🚀 serve start !!`);

@@ -1,7 +1,7 @@
 const template = (status, params) => {
     return {
         status,
-        message: params
+        data: params
     }
 }
 

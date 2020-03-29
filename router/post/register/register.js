@@ -21,27 +21,25 @@ const addUser = async (ctx, next) => {
             message: '请输入正确邮箱'
         })
     };
-
+    // 生成jsonwebtoken对象
+    const userMsg = {
+        email: email,
+        password: password
+    };
     try {
-        const user = await mysql('SEACHUSER', {}, 2);
-        const result = user.filter(_ => _.email === email);
+        const result = await mysql('HAVEUSER', {
+            email: email,
+        });
         // 查询用户是否存在
         if(result && result.length > 0) {
             ctx.body = template(code['1004'], {
                 message: '该用户已存在'
-            })
+            }, 4)
         }else {
-            // 生成jsonwebtoken对象
-            const userMsg = {
-                name,
-                email,
-                password
-            };
-            console.log(encry(userMsg));
             const data = await mysql('ADDUSER', {
-                name,
-                email,
-                password,
+                name: name,
+                email: email,
+                password: password,
                 token: encry(userMsg)
             }, 0);
             if(data) {

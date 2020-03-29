@@ -10,7 +10,9 @@ const config = {
 // sql 操作
 const sqlObj = {
     // 查询用户
-    'SEACHUSER': 'SELECT * FROM sql_test.user',
+    'SEACHUSER': (email, token) => {
+        return 'SELECT name, email FROM sql_test.user WHERE (`email` = "'+ email +'") and (`token` = "'+ token +'"  );'
+    },
     // 更新用户信息
     'UPDATAUSER': (email, name) => {
         let sql = "UPDATE `sql_test`.`user` SET `name` = '"+ name +"' WHERE (`email` = '"+ email +"');";
@@ -23,7 +25,14 @@ const sqlObj = {
     // 删除数据
     'DELETEUSER': (id, token) => {
         return "DELETE FROM `sql_test`.`text` WHERE (`id` = '"+ id +"') and (`token` = '"+ token +"')";
-    } 
+    },
+    // 搜索用户是否存在
+    'HAVEUSER': (email, token) => {
+        // return 'SELECT name, email FROM sql_test.user WHERE (`email` = '+ email +') and (`token` = '+ token +');'
+        return 'SELECT name, email FROM sql_test.user WHERE (`email` = "'+ email +'");'
+    },
+    // 获取用户token, 解密
+    'GETUSERTOKEN': (email) => "SELECT token FROM sql_test.user WHERE (`email` = '"+ email +"');"
 };
 
 const connection = mysql.createConnection({
@@ -58,7 +67,7 @@ const sqlFn = async (name, params, status) => {
             case 1:
                 break;
             case 2:
-                connection.query(sqlObj[name], (err, result) => {
+                connection.query(sqlObj[name](params.email, params.token), (err, result) => {
                     if(err) throw err;
                     res(result);
                 });
@@ -69,10 +78,26 @@ const sqlFn = async (name, params, status) => {
                     res(result);
                 });
                 break;
+            case 4:
+                connection.query(sqlObj[name]( params.email,params.token), (err, result) => {
+                    if(err) throw err;
+                    res(result);
+                });
+                break;
+            case 5: 
+                connection.query(sqlObj[name](params.email), (err, result) => {
+                    if(err) throw err;
+                    res(result);
+                });
+                break;
             default:
+                console.log(params);
+                connection.query(sqlObj[name]( params.email, params.token), (err, result) => {
+                    if(err) throw err;
+                    res(result);
+                });
                 break;
         }
-        
     })
 };
 

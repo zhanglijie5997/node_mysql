@@ -7,10 +7,20 @@ const mysql = require("../../../config/confis");
 const { getAccessToken, authorization } = require("../../../config/wx/wx");
 
 const index = async (ctx, next) => {
-    // const data = authorization();
-    const result = await mysql('SEACHUSER', {}, 2);
+    let test = [];
+    try {
+        test = await mysql('SEACHUSER', {
+            email: '13650653625@163.com',
+            token: '840E91BAE37C57C1'
+        }, 2);
+        console.log(test, 'test');
+    } catch (error) {
+        test = [{
+            message: '无此用户'
+        }]
+    }
     ctx.body = template(status['1001'], {
-        result
+        message: test[0]
     });
     // ctx.response.redirect('http://www.baidu.com')
     await next();

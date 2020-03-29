@@ -1,8 +1,11 @@
 const changeUser = require("./changeUser/changeUser");
 
-const addUser = require("./addUser/addUser")
+const register = require("./register/register")
+
+const login = require("./login/login")
 
 module.exports = {
+    register,
     changeUser,
-    addUser
+    login
 }

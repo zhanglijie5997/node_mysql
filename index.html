@@ -8,24 +8,33 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
+    <input type="text" class="name" value="test@test3.com"/>
+    <input type="password" class="pwd" value="zxc123"/>
+    <button onclick="submit()">提交</button>
     <script>
         $(function() {
-            $.ajax({
-                url: 'http://localhost:9999/' + 'changeUser',
-                method: 'post',
-                headers: {
-                    'authorization': '840E91BAE37C57C1',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    name: '张利杰',
-                    email: '13650653625@163.com'
-                },
-                success(res) {
-                    console.log(res, '55');
-                }
-            })
         });
+        function submit() {
+                const baseUrl = 'http://127.0.0.1:9999/';
+                const email = $('.name').val();
+                const pwd = $('.pwd').val();
+                $.ajax({
+                    url: baseUrl + 'register',
+                    method: 'post',
+                    headers: {
+                        'authorization': '',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: {
+                        password: pwd,
+                        name: 'asd',
+                        email: email
+                    },
+                    success(res) {
+                        console.log(res, '55');
+                    }
+                })
+            }
     </script>
 </body>
 </html>
