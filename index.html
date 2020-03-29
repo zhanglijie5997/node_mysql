@@ -11,12 +11,13 @@
     <script>
         $(function() {
             $.ajax({
-                url: 'http://localhost:9999/' + 'changeUser',
+                url: 'http://127.0.0.0:9998/' + 'changeUser',
                 method: 'post',
                 headers: {
                     'authorization': '840E91BAE37C57C1',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
+                timeout: 5000,
                 data: {
                     name: '张利杰',
                     email: '13650653625@163.com'

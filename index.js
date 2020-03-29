@@ -30,6 +30,6 @@ router.post('/changeUser', changeUser)
 
 router.post('/addUser', addUser)
 
-app.listen(9999, () => {
+app.listen(9998, () => {
     console.log(`🚀 serve start !!`);
 })

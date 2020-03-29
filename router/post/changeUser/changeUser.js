@@ -4,6 +4,7 @@ const sqlFn = require("../../../config/confis");
 
 const code = require("../../../utils/code");
 
+// 改变用户信息
 const changeUser = async (ctx, next) => {
     const { email, name } = ctx.request.body;
     const { authorization } = ctx.request.header;

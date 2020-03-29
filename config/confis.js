@@ -10,20 +10,20 @@ const config = {
 // sql 操作
 const sqlObj = {
     // 查询用户
-    'SEACHUSER': 'SELECT * FROM sql_test.user',
+    'SEACHUSER': (email, token) => 'SELECT '+ email +', '+ token +' FROM sql_test.user ',
     // 更新用户信息
     'UPDATAUSER': (email, name) => {
         let sql = "UPDATE `sql_test`.`user` SET `name` = '"+ name +"' WHERE (`email` = '"+ email +"');";
         return sql;
     },
     // 添加用户
-    'ADDUSER': (email, name, token) => {
-        return "INSERT INTO `sql_test`.`user` (`name`, `email`, `token`) VALUES ('"+ name +"', '"+ email +"', '"+ token +"')"
+    'ADDUSER': (email, name, password, token) => {
+        return "INSERT INTO `sql_test`.`user` (`name`, `email`, `token`, `password`) VALUES ('"+ name +"', '"+ email +"', '"+ token +"', '"+ password +"');"
     },
     // 删除数据
     'DELETEUSER': (id, token) => {
         return "DELETE FROM `sql_test`.`text` WHERE (`id` = '"+ id +"') and (`token` = '"+ token +"')";
-    } 
+    }
 };
 
 const connection = mysql.createConnection({
@@ -50,7 +50,7 @@ const sqlFn = async (name, params, status) => {
     return await new Promise((res, rej) => {
         switch (status) {
             case 0:
-                connection.query(sqlObj[name](params.email, params.name, params.token), (err, result) => {
+                connection.query(sqlObj[name](params.email, params.name, params.password, params.token), (err, result) => {
                     if(err) throw err;
                     res(result) ;
                 });
