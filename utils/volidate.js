@@ -7,11 +7,10 @@ const { decry } = require("../config/cryptoJs/cryptoJs");
 // token验证
 const volidate = async (ctx, next) => {
     const { method, header, url } = ctx.request;
+    console.log(ctx.request.body)
     const { email } = ctx.request.body;
     // 查询用户
     const result = await mysql('GETUSERTOKEN', {email}, 5);
-    // const { password } = decry(result[0].token) ;
-
     const voliadtaArr = ['/changeUser']; // 需要验证的路由
     if(method === 'POST' || method === 'post') {
         const { authorization } = header;
@@ -24,7 +23,7 @@ const volidate = async (ctx, next) => {
             }else {
                 // token 过期
                 ctx.body = template(10004, {
-                    message: '登录凭证失效'
+                    message: '登录凭证失效, 请重新登录'
                 })
             }
         }else {
@@ -33,7 +32,6 @@ const volidate = async (ctx, next) => {
     }else {
         await next();
     }
-    
 }
 
 module.exports = volidate;

@@ -14,11 +14,12 @@ const { changeUser, register, login } = require("./router/post/post");
 
 const app = new koa();
 
-app.use(cors());
+app.use(bodyparser());
 
 app.use(volidate);
 
-app.use(bodyparser());
+app.use(cors());
+
 
 app.use(router.routes());
 

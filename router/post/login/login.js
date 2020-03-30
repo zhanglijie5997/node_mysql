@@ -10,9 +10,7 @@ const login = async (ctx, next) => {
     const { email, password } = ctx.request.body;
     try {
         const result = await mysql('GETUSERTOKEN', {email}, 5);
-        // const tokenDecry = decry(result);
         const tokenDecry = decry(result[0].token);
-        console.log(tokenDecry, '...');
         if(email === tokenDecry.email && password === tokenDecry.password) {
             ctx.body = template(code['1001'], {
                 message: '登录成功'
