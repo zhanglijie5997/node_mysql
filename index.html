@@ -35,6 +35,21 @@
                     }
                 })
             }
+        if(!Function.prototype.bind)(function() {
+            var slice = Array.prototype.slice;
+            Function.prototype.bind = function() {
+                const self = this;
+                const that = arguments[0];
+                const args = slice.call(arguments, 1);
+                if(Object.toString.call(that) !== '[object Function]') {
+                    throw TypeError('is not Function')
+                }
+                return function() {
+                    const arg = args.concat(slice.call(arguments));
+                    return self.apply(that, arg)
+                }
+            }
+        })();
     </script>
 </body>
 </html>

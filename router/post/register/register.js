@@ -1,3 +1,5 @@
+const gravatar = require("gravatar");
+
 const template = require("../../../utils/utils");
 
 const mysql = require("../../../config/confis");
@@ -8,8 +10,9 @@ const { encry } = require("../../../config/cryptoJs/cryptoJs")
 
 // 添加用户
 const addUser = async (ctx, next) => {
-    console.log(`2123`);
-    const { name, email, password } = ctx.request.body;
+    const { name, email, password, avatar, type } = ctx.request.body;
+    // 用户未上传头像, 使用默认头像
+    const unsecureUrl = gravatar.url(email, {s: '100', r: 'x', d: 'retro'}, false);
     if(!name) {
         ctx.body = template(code['1004'], {
             message: '请输入正确用户名'
@@ -24,7 +27,8 @@ const addUser = async (ctx, next) => {
     // 生成jsonwebtoken对象
     const userMsg = {
         email: email,
-        password: password
+        password: password,
+        type
     };
     try {
         const result = await mysql('HAVEUSER', {
@@ -40,6 +44,8 @@ const addUser = async (ctx, next) => {
                 name: name,
                 email: email,
                 password: password,
+                avatar: avatar ? avatar : unsecureUrl,
+                type: type ? type : 0,
                 token: encry(userMsg)
             }, 0);
             if(data) {

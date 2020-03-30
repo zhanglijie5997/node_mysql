@@ -11,7 +11,7 @@ const config = {
 const sqlObj = {
     // 查询用户
     'SEACHUSER': (email, token) => {
-        return 'SELECT name, email FROM sql_test.user WHERE (`email` = "'+ email +'") and (`token` = "'+ token +'"  );'
+        return 'SELECT name, email, avatar, type FROM sql_test.user WHERE (`email` = "'+ email +'") and (`token` = "'+ token +'");'
     },
     // 更新用户信息
     'UPDATAUSER': (email, name) => {
@@ -19,8 +19,8 @@ const sqlObj = {
         return sql;
     },
     // 添加用户
-    'ADDUSER': (email, name, token) => {
-        return "INSERT INTO `sql_test`.`user` (`name`, `email`, `token`) VALUES ('"+ name +"', '"+ email +"', '"+ token +"')"
+    'ADDUSER': (email, name, token, avatar, password, type) => {
+        return "INSERT INTO `sql_test`.`user` (`name`, `email`, `token`, `password`, `avatar`) VALUES ('"+ name +"', '"+ email +"', '"+ token +"', '"+ password +"', '"+ avatar +"');"
     },
     // 删除数据
     'DELETEUSER': (id, token) => {
@@ -59,7 +59,7 @@ const sqlFn = async (name, params, status) => {
     return await new Promise((res, rej) => {
         switch (status) {
             case 0:
-                connection.query(sqlObj[name](params.email, params.name, params.token), (err, result) => {
+                connection.query(sqlObj[name](params.email, params.name, params.token, params.avatar, params.password, params.type), (err, result) => {
                     if(err) throw err;
                     res(result) ;
                 });

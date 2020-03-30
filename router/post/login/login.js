@@ -8,10 +8,21 @@ const code = require('../../../utils/code')
 
 const login = async (ctx, next) => {
     const { email, password } = ctx.request.body;
+    if(!email) {
+        ctx.body = template(code['1004'], {
+            message: '请输入邮箱'
+        })
+    }
+    if(!password) {
+        ctx.body = template(code['1004'], {
+            message: '请输入密码'
+        })
+    }
+    
     try {
         const result = await mysql('GETUSERTOKEN', {email}, 5);
         const tokenDecry = decry(result[0].token);
-        if(email === tokenDecry.email && password === tokenDecry.password) {
+        if(email === tokenDecry.email && password === tokenDecry.password ) {
             ctx.body = template(code['1001'], {
                 message: '登录成功'
             })

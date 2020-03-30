@@ -10,8 +10,8 @@ const index = async (ctx, next) => {
     let test = [];
     try {
         test = await mysql('SEACHUSER', {
-            email: '13650653625@163.com',
-            token: '840E91BAE37C57C1'
+            email: 'test@160.com',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTYwLmNvbSIsInBhc3N3b3JkIjoienhjMTIzIiwiaWF0IjoxNTg1NTcwMzI2LCJleHAiOjE1ODU2OTk5MjYsImlzcyI6InpoYW5nbGlqaWUifQ.ge7IJNRJ1ROL1DwwO6TG0Bug2h9ctsjv6vODlDZvA0U'
         }, 2);
         console.log(test, 'test');
     } catch (error) {
