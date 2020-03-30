@@ -1,0 +1,41 @@
+.size {
+    font-size: 16px;
+    div {
+        &:last-child {
+            padding-bottom: 105px;
+        }
+    }
+    .mask {
+        font-size: 50px;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+    }
+    .getData {
+        // width: 100vw;
+        text-align: center;
+        font-size: 36px;
+        color: red;
+    }
+}
+
+.img {
+    width: 240px;
+    height: 240px;
+}
+
+.show {
+    overflow: inherit;
+}
+.hide {
+    overflow: hidden;
+    height: 100vh;
+}
+.bgImg {
+    width: 100px;
+    display: block;
+}
+.positon {
+    position: fixed;
+    top: 0;
+}

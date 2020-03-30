@@ -1,0 +1,98 @@
+.router {
+  display: flex;
+  .menuContainer{
+    min-height: 100vh;
+    height: 100%;
+    flex: 1;
+    .menu {
+      min-height: 100vh;
+      height: 100%;
+    }
+    .addMenuWidth {
+      width: 220px;
+    }
+  }
+  .pageView {
+    flex: 8;
+  }
+}
+.appBar {
+  position: fixed;
+  bottom: 0;
+  height:100px; 
+  // padding-bottom: calc(env(safe-area-inset-bottom));
+  width: 100vw;
+  background: #ffffff;
+  
+  // 适配iphoneX
+  // bottom: calc();
+  .navBox {
+    // width: 590px;
+    // margin: 0 auto;
+    display: flex;
+  }
+  a {
+    flex: 1;
+    height: 100%;
+    div {
+      margin: .16px auto;
+    }
+  }
+  .navItem {
+    flex: 1;
+    height: 100%;
+    .navitemBox {
+      // padding: 16px 143px 12px 0;
+      img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 12px;
+        display: block;
+        margin: 16px auto 16px;
+      }
+      p {
+        margin: 0;
+        text-align: center;
+        font-size: 20px;
+        white-space: nowrap;
+        color: black;
+      }
+    }
+  }
+}
+.selectColor {
+  color: #e81844!important;
+}
+.oageView {
+  height: 100%;
+}
+/* x xs */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+   // iphoneX iphoneXS样式
+   .appBar {
+     padding-bottom: 15px;
+     .navBox {
+       height: 115px;
+     }
+   }
+}
+/* xr */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+    // iphoneXR样式
+    .appBar {
+     padding-bottom: 15px;
+     .navBox {
+       height: 115px;
+     }
+   }
+}
+/* xs max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+    // iphoneXR样式
+    .appBar {
+     padding-bottom: 15px;
+     .navBox {
+       height: 115px;
+     }
+   }
+}
